@@ -8,5 +8,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 import com.semantic.sigp.api.core.model.BaseModel;
 
 @NoRepositoryBean
-public interface BaseRepository<T extends BaseModel, ID extends Serializable> extends JpaRepository<T, ID> {
+public interface IBaseRepository<T extends BaseModel, ID extends Serializable> extends JpaRepository<T, ID> {
 }

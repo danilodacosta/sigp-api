@@ -1,7 +1,10 @@
 package com.semantic.sigp.api.core.model;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class BaseModel {
 	
-	private Long id;	
+	 public abstract Long getId();
 	
 }
