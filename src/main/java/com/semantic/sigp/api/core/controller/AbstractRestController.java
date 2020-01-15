@@ -1,7 +1,9 @@
 package com.semantic.sigp.api.core.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.semantic.sigp.api.core.model.BaseModel;
@@ -11,62 +13,44 @@ public abstract class AbstractRestController<T extends BaseModel> {
 
 	protected abstract IBaseService<T> getService();
 
-	 private String entityName;
+	public ResponseEntity<List<?>> listar() {
+		return ResponseEntity.ok(getService().findAll());
+	}
 
+	public ResponseEntity<?> buscarPorCodigo(long id) {
 
-        public ResponseEntity<List<T>> listar(){
-	        return ResponseEntity.ok(getService().findAll());
-	    }
+		Optional<T> t = getService().findById(id);
 
-	 
-	/*
-    public ResponseEntity<T> visualizar(long id){
-        log.debug("REST request to get {} : {}",getEntityName(), id);
-        Optional<T> t = getService().findById(id);
+		if (!t.isPresent()) {
+			// throw new ApiException("Página não encontrada", 404);
+			ResponseEntity.notFound().build();
+		}
 
-        if (!t.isPresent())
-            throw new ApiException("Página não encontrada", 404);
+		return ResponseEntity.ok(t.get());
+	}
 
-        return ResponseEntity.ok(t.get());
-    }
+	public ResponseEntity<?> salvar(T t) {
 
-    public ResponseEntity cadastrar(T t){
-        log.debug("REST request to save "+getEntityName()+" : {}", t);
+		getService().save(t);
 
-        getService().save(t);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
+	public ResponseEntity<?> editar(Long id, T t) {
+		getService().save(t);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
 
-    public ResponseEntity editar(Long id, T t){
-        log.debug("REST request to update " + getEntityName() +" : {}", t);
-        getService().save(t);
+	public ResponseEntity<?> excluir(long id) {
+		Optional<T> t = getService().findById(id);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
+		if (!t.isPresent()) {
+			// throw new ApiException("Página não encontrada", 404);
+			ResponseEntity.notFound().build();
+		}
 
-    public ResponseEntity excluir(long id){
-        log.debug("REST request to delete {} : {}", getEntityName(), id);
-        Optional<T> t = getService().findById(id);
+		getService().delete(t.get());
 
-        if (!t.isPresent())
-            throw new ApiException("Página não encontrada", 404);
-
-        try {
-            getService().remove(t.get());
-        }catch (RollbackException | UnexpectedRollbackException | DataIntegrityViolationException | ConstraintViolationException | org.hibernate.exception.ConstraintViolationException e) {
-            throw new ApiException("O registro possui vínculos no sistema e não pode ser excluído.", 400);
-        }
-
-
-        return ResponseEntity.noContent().build();
-    }
-
-    protected String getEntityName(){
-        if (entityName == null)
-            entityName = ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getSimpleName();
-
-        return entityName;
-    }*/
-	
+		return ResponseEntity.noContent().build();
+	}
 }
