@@ -16,8 +16,8 @@ public abstract class AbstractRestController<T extends BaseModel> {
 
 	protected abstract IBaseService<T> getService();
 
-	protected List<?> listar() {
-		return getService().findAll();
+	protected ResponseEntity<List<T>> listar() {
+		 return ResponseEntity.ok(getService().findAll());
 	}
 
 	
@@ -34,6 +34,7 @@ public abstract class AbstractRestController<T extends BaseModel> {
 		Optional<T> entity = getService().findById(id);
 
 		if (!entity.isPresent()) {
+			//TODO criar classe para tratar exceção.
 			// throw new ApiException("Página não encontrada", 404);
 			ResponseEntity.notFound().build();
 		}

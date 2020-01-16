@@ -23,11 +23,11 @@ public class EmpresaRestController extends AbstractRestController<Empresa> {
 	protected IBaseService<Empresa> getService() {
 		return service;
 	}
-	
-	@SuppressWarnings("unchecked")
+
+	@Override
 	@GetMapping
-	public List<Empresa> listar() {
-		return (List<Empresa>) super.listar();
+	public ResponseEntity<List<Empresa>> listar() {
+		return (ResponseEntity<List<Empresa>>) super.listar();
 	}
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
@@ -36,7 +36,6 @@ public class EmpresaRestController extends AbstractRestController<Empresa> {
 			@RequestParam(value="linesPerPage", defaultValue="10") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="razao") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		
 		
 		return super.findPage(page, linesPerPage, orderBy, direction);
 	}	
@@ -55,7 +54,7 @@ public class EmpresaRestController extends AbstractRestController<Empresa> {
 	
 	@SuppressWarnings("unchecked")
 	@PutMapping("/{id}")
-	public ResponseEntity<Empresa> atualizar(@PathVariable long id , @RequestBody Empresa empresa) {
+	public ResponseEntity<Empresa> editar(@PathVariable long id , @RequestBody Empresa empresa) {
 		return (ResponseEntity<Empresa>) super.editar(id, empresa);
 	}
 		
