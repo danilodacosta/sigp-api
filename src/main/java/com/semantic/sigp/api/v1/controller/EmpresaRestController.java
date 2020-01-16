@@ -4,6 +4,9 @@ import com.semantic.sigp.api.core.controller.AbstractRestController;
 import com.semantic.sigp.api.core.service.IBaseService;
 import com.semantic.sigp.api.v1.model.Empresa;
 import com.semantic.sigp.api.v1.service.IEmpresaService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,30 +22,35 @@ public class EmpresaRestController extends AbstractRestController<Empresa> {
 	protected IBaseService<Empresa> getService() {
 		return service;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping
+	public List<Empresa> listar() {
+		return (List<Empresa>) super.listar();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/{id}")
+	public ResponseEntity<Empresa> buscarPorId(@PathVariable long id) {
+		return (ResponseEntity<Empresa>) super.buscarPorId(id);
+	}
 
 	@SuppressWarnings("unchecked")
 	@PostMapping
 	public ResponseEntity<Empresa> salvar(@RequestBody Empresa empresa) {
 		return (ResponseEntity<Empresa>) super.salvar(empresa);
 	}
-
-	/*
-	 * 
-	 * @Override
-	 * 
-	 * @GetMapping("/{id}") public ResponseEntity<Empresa> visualizar(@PathVariable
-	 * long id) { return null;//super.visualizar(id); }
-	 * 
-	 * @Override
-	 * 
-	 * @PutMapping("/{id}") public ResponseEntity editar(@PathVariable Long
-	 * id, @RequestBody Empresa empresa) { if (!id.equals(empresa.getId())) return
-	 * ResponseEntity.notFound().build(); return null; // return super.editar(id,
-	 * empresa); }
-	 * 
-	 * @Override
-	 * 
-	 * @DeleteMapping("/{id}") public ResponseEntity excluir(@PathVariable long id)
-	 * { return null;//return super.excluir(id); }
-	 */
+	
+	@SuppressWarnings("unchecked")
+	@PutMapping("/{id}")
+	public ResponseEntity<Empresa> atualizar(@PathVariable long id , @RequestBody Empresa empresa) {
+		return (ResponseEntity<Empresa>) super.editar(id, empresa);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Empresa> excluir(@PathVariable long id) {
+		return (ResponseEntity<Empresa>) super.excluir(id);
+	}
+	
+	 
 }
