@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.semantic.sigp.api.core.model.BaseModel;
 import com.semantic.sigp.api.core.repository.IBaseRepository;
-
+import org.springframework.data.domain.Sort.Direction;
 
 @Service
 public abstract class BaseServiceImpl<T extends BaseModel> implements IBaseService<T> {
@@ -36,11 +36,11 @@ public abstract class BaseServiceImpl<T extends BaseModel> implements IBaseServi
     }
 
     @Override
-    @Transactional
-    public Page<T> findAllPaginated(int page, int size) {
-        //logService.saveListar(getEntityName());
-        return getRepository().findAll(PageRequest.of(page, size));
-    }
+    @Transactional()
+    public Page<T> findAllPaginated(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return getRepository().findAll(pageRequest);
+	}
 
     @Override
     @Transactional

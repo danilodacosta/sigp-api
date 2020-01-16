@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -15,30 +16,39 @@ public abstract class AbstractRestController<T extends BaseModel> {
 
 	protected abstract IBaseService<T> getService();
 
-	public List<?> listar() {
+	protected List<?> listar() {
 		return getService().findAll();
 	}
 
-	public ResponseEntity<?> buscarPorId(long id) {
+	
+	protected Page<?> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		
+		Page<?> list = getService().findAllPaginated(page, linesPerPage, orderBy, direction);
 
-		Optional<T> t = getService().findById(id);
+		return list;
+	}
+	
+	
+	protected ResponseEntity<?> buscarPorId(long id) {
 
-		if (!t.isPresent()) {
+		Optional<T> entity = getService().findById(id);
+
+		if (!entity.isPresent()) {
 			// throw new ApiException("Página não encontrada", 404);
 			ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok(t.get());
+		return ResponseEntity.ok(entity.get());
 	}
 
-	public ResponseEntity<?> salvar(T t) {
+	protected ResponseEntity<?> salvar(T entity) {
 
-		getService().save(t);
+		getService().save(entity);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	public ResponseEntity<?> editar(Long id, T t) {
+	protected ResponseEntity<?> editar(Long id, T t) {
 				
 		Optional<T> entity  = getService().findById(id);
 		
@@ -54,15 +64,16 @@ public abstract class AbstractRestController<T extends BaseModel> {
 		return ResponseEntity.ok(t);
 	}
 
-	public ResponseEntity<?> excluir(long id) {
-		Optional<T> t = getService().findById(id);
+	protected ResponseEntity<?> excluir(long id) {
+		Optional<T> entity = getService().findById(id);
 
-		if (!t.isPresent()) {
+		if (!entity.isPresent()) {
 			throw new EmptyResultDataAccessException(1);
 		}
 
-		getService().delete(t.get());
+		getService().delete(entity.get());
 
 		return ResponseEntity.noContent().build();
-	}
+	}	
+	
 }

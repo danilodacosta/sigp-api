@@ -9,7 +9,7 @@ public interface IBaseService<T> {
 
 	Optional<T> findById(long id);
 	List<T> findAll();
-	Page<T> findAllPaginated(int page, int size);
+	Page<T> findAllPaginated(Integer page, Integer linesPerPage, String orderBy, String direction);
 	T save(T t);	
 	void delete(T t);
 	Long count();		
