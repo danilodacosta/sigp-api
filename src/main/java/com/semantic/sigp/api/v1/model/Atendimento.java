@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Column;
 
 import com.semantic.sigp.api.core.model.BaseModel;
@@ -13,6 +14,7 @@ import com.semantic.sigp.api.core.model.BaseModel;
 import lombok.EqualsAndHashCode;
 
 @Entity
+@Table(name = "sigp_atendimento")
 @EqualsAndHashCode
 public class Atendimento extends BaseModel {
 
