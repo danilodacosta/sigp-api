@@ -2,9 +2,12 @@ package com.semantic.sigp.api.v1.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.semantic.sigp.api.core.model.BaseModel;
@@ -26,8 +29,12 @@ public class Comunidade extends BaseModel {
 	@Column(length = 30, nullable = false)
 	private String bairro;
 
-	@Column(length = 50, nullable = false)
-	private String representante;
+	@Column(length = 60, nullable = false)
+	private String distrito;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_representante", foreignKey = @ForeignKey(name = "comunidade_representante_fk"))
+	private Representante representante;
 
 	public Long getId() {
 		return id;
@@ -53,12 +60,21 @@ public class Comunidade extends BaseModel {
 		this.bairro = bairro;
 	}
 
-	public String getRepresentante() {
+	public Representante getRepresentante() {
 		return representante;
 	}
 
-	public void setRepresentante(String representante) {
+	public void setRepresentante(Representante representante) {
 		this.representante = representante;
-	}	
+	}
+
+	public String getDistrito() {
+		return distrito;
+	}
+
+	public void setDistrito(String distrito) {
+		this.distrito = distrito;
+	}
+	
 	
 }

@@ -2,9 +2,12 @@ package com.semantic.sigp.api.v1.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.semantic.sigp.api.core.model.BaseModel;
@@ -29,8 +32,9 @@ public class Memorando extends BaseModel {
 	@Column(length = 6, nullable = false)
 	private Integer numero;
 
-	@Column(length = 40, nullable = false)
-	private String categoria;
+	@ManyToOne
+	@JoinColumn(name = "id_categoria", foreignKey = @ForeignKey(name = "memorando_categoria_fk"))
+	private Categoria categoria;
 	
 	@Column(length = 40, nullable = false)
 	private String destinatario;
@@ -67,11 +71,11 @@ public class Memorando extends BaseModel {
 		this.numero = numero;
 	}
 
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

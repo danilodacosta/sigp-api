@@ -2,14 +2,12 @@ package com.semantic.sigp.api.v1.model;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import javax.persistence.Column;
 
 import com.semantic.sigp.api.core.model.BaseModel;
+import com.semantic.sigp.api.v1.enums.TipoSituacaoEnum;
 
 import lombok.EqualsAndHashCode;
 
@@ -27,23 +25,28 @@ public class Atendimento extends BaseModel {
 
 	private LocalDate data;
 
-	@Column(length = 10, nullable = false)
-	private String situacao;
+	@Column
+	@Enumerated(EnumType.STRING)
+	private TipoSituacaoEnum situacao;
 	
 	@Column(length = 25, nullable = false)
 	private String atendente;
 
-	@Column(length = 15, nullable = false)
-	private String categoria;
+	@ManyToOne
+	@JoinColumn(name = "id_categoria", foreignKey = @ForeignKey(name = "atendimento_categoria_fk"))
+	private Categoria categoria;
 
 	private LocalDate prazo;
 
-	@Column(length = 6, nullable = false)
-	private String visitante;
+	@ManyToOne
+	@JoinColumn(name = "id_visitante", foreignKey = @ForeignKey(name = "atendimento_visitante_fk"))
+	private Visitante visitante;
 
 	private String solicitacao;
 
-	private String comunidade;
+	@ManyToOne
+	@JoinColumn(name = "id_comunidade", foreignKey = @ForeignKey(name = "atendimento_comunidade_fk"))
+	private Comunidade comunidade;
 	
 	@Column(length = 30, nullable = false)
 	private String indicacao;
@@ -73,12 +76,12 @@ public class Atendimento extends BaseModel {
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
-
-	public String getSituacao() {
+	
+	public TipoSituacaoEnum getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(String situacao) {
+	public void setSituacao(TipoSituacaoEnum situacao) {
 		this.situacao = situacao;
 	}
 
@@ -89,15 +92,7 @@ public class Atendimento extends BaseModel {
 	public void setAtendente(String atendente) {
 		this.atendente = atendente;
 	}
-
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-
+	
 	public LocalDate getPrazo() {
 		return prazo;
 	}
@@ -105,12 +100,12 @@ public class Atendimento extends BaseModel {
 	public void setPrazo(LocalDate prazo) {
 		this.prazo = prazo;
 	}
-
-	public String getVisitante() {
+	
+	public Visitante getVisitante() {
 		return visitante;
 	}
 
-	public void setVisitante(String visitante) {
+	public void setVisitante(Visitante visitante) {
 		this.visitante = visitante;
 	}
 
@@ -122,11 +117,11 @@ public class Atendimento extends BaseModel {
 		this.solicitacao = solicitacao;
 	}
 
-	public String getComunidade() {
+	public Comunidade getComunidade() {
 		return comunidade;
 	}
 
-	public void setComunidade(String comunidade) {
+	public void setComunidade(Comunidade comunidade) {
 		this.comunidade = comunidade;
 	}
 
@@ -144,6 +139,14 @@ public class Atendimento extends BaseModel {
 
 	public void setFlag(Integer flag) {
 		this.flag = flag;
-	}	
+	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}	
+	
 }

@@ -2,9 +2,12 @@ package com.semantic.sigp.api.v1.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.semantic.sigp.api.core.model.BaseModel;
@@ -32,8 +35,9 @@ public class Propositura extends BaseModel {
 	@Column(nullable = false)
 	private String assunto;
 		
-	@Column(length = 15, nullable = false)
-	private String categoria;
+	@ManyToOne
+	@JoinColumn(name = "id_categoria", foreignKey = @ForeignKey(name = "propositura_categoria_fk"))
+	private Categoria categoria;
 	
 	@Column(length = 30, nullable = false)
 	private String autoria;
@@ -90,15 +94,15 @@ public class Propositura extends BaseModel {
 		this.assunto = assunto;
 	}
 
-	public String getCategoria() {
+		
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
-	
 	public String getAutoria() {
 		return autoria;
 	}
