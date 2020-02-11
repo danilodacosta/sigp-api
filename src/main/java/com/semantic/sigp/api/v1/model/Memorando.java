@@ -2,6 +2,8 @@ package com.semantic.sigp.api.v1.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.semantic.sigp.api.core.model.BaseModel;
+import com.semantic.sigp.api.v1.enums.TipoSituacaoEnum;
 
 import lombok.EqualsAndHashCode;
 
@@ -23,8 +26,9 @@ public class Memorando extends BaseModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(length = 15, nullable = false)
-	private String situacao;
+	@Column(nullable = false, length=15)
+    @Enumerated(EnumType.STRING)
+	private TipoSituacaoEnum situacao;
 	
 	@Column(length = 40, nullable = false)
 	private String solicitante;
@@ -46,12 +50,12 @@ public class Memorando extends BaseModel {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getSituacao() {
+	
+	public TipoSituacaoEnum getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(String situacao) {
+	public void setSituacao(TipoSituacaoEnum situacao) {
 		this.situacao = situacao;
 	}
 

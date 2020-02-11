@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("v1/empresas")
+@CrossOrigin("*")
 public class EmpresaRestController extends AbstractRestController<Empresa> {
 
 	@Autowired

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("v1/memorandos")
+@CrossOrigin("*")
 public class MemorandoRestController extends AbstractRestController<Memorando> {
 
 	@Autowired
