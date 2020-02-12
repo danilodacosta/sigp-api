@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("v1/visitantes")
+@CrossOrigin("*")
 public class VisitanteRestController extends AbstractRestController<Visitante> {
 
 	@Autowired
