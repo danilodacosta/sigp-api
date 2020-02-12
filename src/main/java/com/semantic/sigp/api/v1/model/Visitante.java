@@ -3,13 +3,16 @@ package com.semantic.sigp.api.v1.model;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.semantic.sigp.api.core.model.BaseModel;
-
+import com.semantic.sigp.api.v1.enums.SexoEnum;
+import com.semantic.sigp.api.v1.enums.TipoPessoaEnum;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
@@ -30,14 +33,19 @@ public class Visitante extends BaseModel {
 	@Column(length = 50, nullable = false)
 	private String rg;
 	
-	@Column(length = 50, nullable = false)
+	@Column(length = 14, nullable = false)
 	private String celular;
 	
 	@Column(length = 50, nullable = false)
 	private String email;
 	
-	@Column(length = 50, nullable = false)
-	private String tipo;
+	@Column(nullable = false, length=50)
+    @Enumerated(EnumType.STRING)
+	private SexoEnum sexo;
+	
+	@Column(nullable = false, length=50)
+    @Enumerated(EnumType.STRING)
+	private TipoPessoaEnum tipo;
 	
 	@Embedded
 	private Endereco endereco;
@@ -90,11 +98,11 @@ public class Visitante extends BaseModel {
 		this.email = email;
 	}
 
-	public String getTipo() {
+	public TipoPessoaEnum getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoPessoaEnum tipo) {
 		this.tipo = tipo;
 	}
 
@@ -104,6 +112,14 @@ public class Visitante extends BaseModel {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public SexoEnum getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(SexoEnum sexo) {
+		this.sexo = sexo;
 	}
 
 }
