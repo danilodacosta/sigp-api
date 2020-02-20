@@ -30,7 +30,7 @@ public class Visitante extends BaseModel {
 	@Column(length = 50, nullable = false)
 	private String cpf;
 	
-	@Column(length = 50, nullable = false)
+	@Column(length = 10, nullable = false)
 	private String rg;
 	
 	@Column(length = 14, nullable = false)

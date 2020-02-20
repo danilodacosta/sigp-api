@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("v1/oficios")
+@CrossOrigin("*")
 public class OficioRestController extends AbstractRestController<Oficio> {
 
 	@Autowired

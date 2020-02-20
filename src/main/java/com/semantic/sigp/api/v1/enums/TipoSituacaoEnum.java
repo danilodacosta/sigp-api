@@ -3,12 +3,13 @@ package com.semantic.sigp.api.v1.enums;
 public enum TipoSituacaoEnum {
 
     PENDENTE("Pendente"),
-    DEFERIDA("Deferida"),
-	INDEFERIDA("Indeferida"),
+    DEFERIDO("Deferido"),
+	INDEFERIDO("Indeferido"),
 	ATENDIDO("Atendido"),
-	PROCESSADO("Processado"); 
-	
-    private String value;
+	PROCESSADO("Processado"), 
+	DESPACHADO("Despachado");
+    
+	private String value;
 
     TipoSituacaoEnum(String value) {
         this.value = value;
