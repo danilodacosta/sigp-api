@@ -32,7 +32,7 @@ public class Propositura extends BaseModel {
 	@Column(length = 15, nullable = false)
 	private String tipo;
 	
-	@Column(nullable = false)
+	@Column(length = 255, nullable = false)
 	private String assunto;
 		
 	@ManyToOne

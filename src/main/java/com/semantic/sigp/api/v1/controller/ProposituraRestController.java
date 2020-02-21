@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("v1/proposituras")
+@CrossOrigin("*")
 public class ProposituraRestController extends AbstractRestController<Propositura> {
 
 	@Autowired
