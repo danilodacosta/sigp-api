@@ -51,8 +51,6 @@ public class Atendimento extends BaseModel {
 	@Column(length = 30, nullable = false)
 	private String indicacao;
 
-	private Integer flag;
-
 	public Long getId() {
 		return id;
 	}
@@ -131,15 +129,7 @@ public class Atendimento extends BaseModel {
 
 	public void setIndicacao(String indicacao) {
 		this.indicacao = indicacao;
-	}
-
-	public Integer getFlag() {
-		return flag;
-	}
-
-	public void setFlag(Integer flag) {
-		this.flag = flag;
-	}
+	}	
 
 	public Categoria getCategoria() {
 		return categoria;
